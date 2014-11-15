@@ -153,6 +153,60 @@ class ConfigStore {
         self.setScannedServices(beacons)
     }
     
+    // scanned names
+    class func getScannedNames() -> [String:Bool] {
+        if let storedNames = NSUserDefaults.standardUserDefaults().dictionaryForKey("scannedNames") {
+            var names = [String:Bool]()
+            for (name, doNotDisplayWithoutName) in storedNames {
+                if let name = name as? String {
+                    if let doNotDisplayWithoutName = doNotDisplayWithoutName as? Bool {
+                        names[name] = doNotDisplayWithoutName
+                    }
+                }
+            }
+            return names
+        } else {
+            return [:]
+        }
+    }
+    
+    class func getScannedNamesNames() -> [String] {
+        return self.getScannedNames().keys.array
+    }
+    
+    class func getScannedNamesBools() -> [Bool] {
+        return self.getScannedNames().values.array
+    }
+    
+    class func getScannedNameBool(name:String) -> Bool? {
+        let names = self.getScannedNames()
+        if let doNotDisplayWithoutName = names[name] {
+            return doNotDisplayWithoutName
+        } else {
+            return nil
+        }
+    }
+    
+    class func setScannedNames(names:[String:Bool]) {
+        var storedNames = [String:Bool]()
+        for (name, doNotDisplayWithoutName) in names {
+            storedNames[name] = doNotDisplayWithoutName
+        }
+        NSUserDefaults.standardUserDefaults().setObject(storedNames, forKey:"scannedNames")
+    }
+    
+    class func addScannedName(name:String, doNotDisplayWithoutName:Bool) {
+        var names = self.getScannedNames()
+        names[name] = doNotDisplayWithoutName
+        self.setScannedNames(names)
+    }
+    
+    class func removeScannedName(name:String) {
+        var beacons = self.getScannedNames()
+        beacons.removeValueForKey(name)
+        self.setScannedNames(beacons)
+    }
+    
     // scan regions
     class func getScanRegions() -> [String:CLLocationCoordinate2D] {
         let userDefaults = NSUserDefaults.standardUserDefaults()

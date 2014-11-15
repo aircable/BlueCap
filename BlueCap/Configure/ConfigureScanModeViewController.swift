@@ -11,7 +11,7 @@ import BlueCapKit
 
 class ConfigureScanModeViewController : UITableViewController {
     
-    let scanModes = ["Promiscuous", "Service"]
+    let scanModes = ["Promiscuous", "Service", "Name"]
     
     struct MainStoryboard {
         static let configureScanModeCell = "ConfigureScanModeCell"

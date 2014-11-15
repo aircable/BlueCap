@@ -28,6 +28,7 @@ class ConfigureViewController : UITableViewController {
     
     struct MainStroryboard {
         static let configureScanServicesSegue   = "ConfigureScanServices"
+        static let configureScanNamesSegue      = "ConfigureScanNames"
         static let configureScanRegionsSegue    = "ConfigureScanRegions"
         static let configureScanModeSegue       = "ConfigureScanMode"
         static let configureScanTimeoutSegue    = "ConfigureScanTimeout"
@@ -72,6 +73,8 @@ class ConfigureViewController : UITableViewController {
             case MainStroryboard.configureScanRegionsSegue:
                 return  !RegionScannerator.sharedInstance().isScanning && !CentralManager.sharedInstance().isScanning
             case MainStroryboard.configureScanServicesSegue:
+                return true
+            case MainStroryboard.configureScanNamesSegue:
                 return true
             default:
                 return true
